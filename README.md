@@ -1,4 +1,4 @@
-# starter-node-bot
+# beatbeat 
 
 ## Overview
 A simple starting point for creating a Beep Boop hostable, Node.js based Slack bot with botkit
