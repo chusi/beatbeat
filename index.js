@@ -10,6 +10,8 @@ if (!slackToken) {
 var controller = Botkit.slackbot()
 var bot = controller.spawn({
   token: slackToken
+  debug: true
+  loglevel: 2
 })
 
 bot.startRTM(function (err, bot, payload) {
@@ -22,21 +24,9 @@ controller.on('bot_channel_join', function (bot, message) {
   bot.reply(message, "I'm here!")
 })
 
-controller.hears(['hello', 'hi'], ['direct_mention'], function (bot, message) {
-  bot.reply(message, 'Hello.')
-})
 
-controller.hears(['hello', 'hi'], ['direct_message'], function (bot, message) {
-  bot.reply(message, 'Hello.')
-  bot.reply(message, 'It\'s nice to talk to you directly.')
-})
-
-// controller.hears('.*', ['mention'], function (bot, message) {
-//   bot.reply(message, 'You really do care about me. :heart:')
-// })
-
-controller.hears('beat', ['direct_message', 'direct_mention'], function (bot, message) {
-  bot.reply(message, 'beat :) <@' + message.user + '>, yes')
+controller.hears('beat (.*)', ['direct_message', 'direct_mention'], function (bot, message) {
+  bot.reply(message, '<@' + message.user + '> sent ' + message.match[1] + ' beat')
 })
 
 controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
